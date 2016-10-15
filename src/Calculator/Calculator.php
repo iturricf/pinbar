@@ -17,22 +17,39 @@ class Calculator
         $op->setPrice($price);
         $op->setQuantity(floor($amount / $price));
 
-        $fee = $op->getOperationTotal(false) * self::RATE_SILVER_FEE;
-        $fee = $fee > self::RATE_SILVER_MIN_FEE ? $fee : self::RATE_SILVER_MIN_FEE;
-
-        $marketFee = $op->getOperationTotal(false) * self::RATE_MARKET_FEE;
-
-        $op->setFee($fee);
-        $op->setFeeTax($fee * self::RATE_TAX);
-        $op->setMarketFee($marketFee);
-        $op->setMarketFeeTax($marketFee * self::RATE_TAX);
+        $this->calcFees($op);
 
         return $op;
     }
 
     public function simulateQuantity(int $quantity, float $price, int $opType = Operation::TYPE_BUY): Operation
     {
-        $op = new Operation();
+        $op = new Operation($opType);
+        $op->setPrice($price);
+        $op->setQuantity($quantity);
 
+        $this->calcFees($op);
+
+        return $op;
+    }
+
+    private function calcFees(Operation $op)
+    {
+        $op->setFee($this->calcFee($op));
+        $op->setFeeTax($op->getFee() * self::RATE_TAX);
+        $op->setMarketFee($this->calcMarketFee($op));
+        $op->setMarketFeeTax($op->getMarketFee() * self::RATE_TAX);
+    }
+
+    private function calcFee(Operation $op): float
+    {
+        $fee = $op->getOperationTotal(false) * self::RATE_SILVER_FEE;
+
+        return $fee > self::RATE_SILVER_MIN_FEE ? $fee : self::RATE_SILVER_MIN_FEE;
+    }
+
+    private function calcMarketFee(Operation $op): float
+    {
+        return $op->getOperationTotal(false) * self::RATE_MARKET_FEE;
     }
 }
