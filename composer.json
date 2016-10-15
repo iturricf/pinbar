@@ -6,5 +6,8 @@
         "psr-4": {
             "CharlieIndia\\Pinbar\\": "src"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6"
     }
 }
