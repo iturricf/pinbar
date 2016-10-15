@@ -1,0 +1,10 @@
+{
+    "require": {
+        "nategood/commando": "^0.2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "CharlieIndia\\Pinbar\\": "src"
+        }
+    }
+}
