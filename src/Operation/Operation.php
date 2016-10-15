@@ -125,6 +125,6 @@ class Operation
             $total += $this->type * ($this->getFee() + $this->getFeeTax() + $this->getMarketFee() + $this->getMarketFeeTax());
         }
 
-        return $total;
+        return round($total, 2);
     }
 }
