@@ -33,6 +33,18 @@ class Operation
         return sprintf($output, $this->getQuantity(), $this->getOperationTotal(false), $this->getFee(), $this->getFeeTax(), $this->getMarketFee(), $this->getMarketFeeTax(), $this->getOperationTotal());
     }
 
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): Operation
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     /**
      * Gets the price.
      *
