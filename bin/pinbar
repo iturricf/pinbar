@@ -42,6 +42,10 @@ $calc = new Calculator();
 
 $opType = $console['sell'] ? Operation::TYPE_SELL : Operation::TYPE_BUY;
 
-$op = $calc->simulateAmount(floatval($console['amount']), floatval($console['price']), $opType);
+if ($console['sell'] || $console['quantity']) {
+    $op = $calc->simulateQuantity(intval($console['amount']), floatval($console['price']), $opType);
+} else {
+    $op = $calc->simulateAmount(floatval($console['amount']), floatval($console['price']), $opType);
+}
 
 echo $op;
