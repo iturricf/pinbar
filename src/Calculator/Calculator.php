@@ -6,6 +6,9 @@ namespace CharlieIndia\Pinbar\Calculator;
 
 use CharlieIndia\Pinbar\Operation\Operation;
 
+/**
+ * @author Cristian Iturri <iturri.cf@gmail.com>
+ */
 class Calculator
 {
     const RATE_SILVER_FEE = 0.007;

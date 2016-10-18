@@ -8,6 +8,9 @@ use CharlieIndia\Pinbar\Calculator\Calculator;
 use CharlieIndia\Pinbar\Operation\Operation;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @author Cristian Iturri <iturri.cf@gmail.com>
+ */
 class CalculatorTest extends Testcase
 {
     public function testSimulateAmount()
