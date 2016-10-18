@@ -18,6 +18,11 @@ class Operation
     private $marketFee;
     private $marketFeeTax;
 
+    /**
+     * Constructor
+     *
+     * @param int $type
+     */
     public function __construct(int $type = self::TYPE_BUY)
     {
         $this->type = $type;
@@ -33,11 +38,23 @@ class Operation
         return sprintf($output, $this->getQuantity(), $this->getAmount(), $this->getFee(), $this->getFeeTax(), $this->getMarketFee(), $this->getMarketFeeTax(), $this->getTotal());
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return int
+     */
     public function getType(): int
     {
         return $this->type;
     }
 
+    /**
+     * Sets the type.
+     *
+     * @param int $type
+     *
+     * @return Operation
+     */
     public function setType(int $type): Operation
     {
         $this->type = $type;
@@ -69,11 +86,23 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the stock quantity.
+     *
+     * @return int
+     */
     public function getQuantity(): int
     {
         return $this->quantity;
     }
 
+    /**
+     * Sets the stock quantity.
+     *
+     * @param int $quantity
+     *
+     * @return Operation
+     */
     public function setQuantity(int $quantity): Operation
     {
         $this->quantity = $quantity;
@@ -81,11 +110,23 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the fee.
+     *
+     * @return float
+     */
     public function getFee(): float
     {
         return $this->fee;
     }
 
+    /**
+     * Sets the fee.
+     *
+     * @param float $fee
+     *
+     * @return Operation
+     */
     public function setFee(float $fee): Operation
     {
         $this->fee = $fee;
@@ -93,11 +134,23 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the fee tax.
+     *
+     * @return float
+     */
     public function getFeeTax(): float
     {
         return $this->feeTax;
     }
 
+    /**
+     * Sets the fee tax.
+     *
+     * @param float $feeTax
+     *
+     * @return Operation
+     */
     public function setFeeTax(float $feeTax): Operation
     {
         $this->feeTax = $feeTax;
@@ -105,11 +158,23 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the market fee.
+     *
+     * @return float
+     */
     public function getMarketFee(): float
     {
         return $this->marketFee;
     }
 
+    /**
+     * Sets the market fee.
+     *
+     * @param float $marketFee
+     *
+     * @return Operation
+     */
     public function setMarketFee(float $marketFee): Operation
     {
         $this->marketFee = $marketFee;
@@ -117,11 +182,23 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the market fee tax.
+     *
+     * @return float
+     */
     public function getMarketFeeTax(): float
     {
         return $this->marketFeeTax;
     }
 
+    /**
+     * Sets the market fee tax.
+     *
+     * @param float $marketFeeTax
+     *
+     * @return Operation
+     */
     public function setMarketFeeTax(float $marketFeeTax): Operation
     {
         $this->marketFeeTax = $marketFeeTax;
@@ -129,11 +206,21 @@ class Operation
         return $this;
     }
 
+    /**
+     * Gets the operation amount before taxes.
+     *
+     * @return float
+     */
     public function getAmount(): float
     {
         return round($this->getQuantity() * $this->getPrice(), 2);
     }
 
+    /**
+     * Gets the operation amount after taxes.
+     *
+     * @return float
+     */
     public function getTotal(): float
     {
         $total = $this->getAmount() + ($this->type * ($this->getFee() + $this->getFeeTax() + $this->getMarketFee() + $this->getMarketFeeTax()));
