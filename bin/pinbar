@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
-
 use CharlieIndia\Pinbar\Calculator\Calculator;
 use CharlieIndia\Pinbar\Operation\Operation;
 use Commando\Command;
+
+require_once __DIR__.'/../vendor/autoload.php';
 
 $console = new Command();
 $console
