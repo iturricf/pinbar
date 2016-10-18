@@ -28,16 +28,6 @@ class Operation
         $this->type = $type;
     }
 
-    public function __toString()
-    {
-        $output = "Operacion compra de %d acciones por el monto de AR$ %.2f\n"
-                . "Comision: AR$ %.2f\nIva Comisión: AR$ %.2f\n"
-                . "Derecho de mercado: AR$ %.2f\nIva Derecho de mercado: AR$ %.2f\n"
-                . "\nTotal operación: AR$ %.2f\n";
-
-        return sprintf($output, $this->getQuantity(), $this->getAmount(), $this->getFee(), $this->getFeeTax(), $this->getMarketFee(), $this->getMarketFeeTax(), $this->getTotal());
-    }
-
     /**
      * Gets the type.
      *

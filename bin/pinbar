@@ -48,4 +48,11 @@ if ($console['sell'] || $console['quantity']) {
     $op = $calc->simulateAmount(floatval($console['amount']), floatval($console['price']), $opType);
 }
 
-echo $op;
+$output = "Cantidad:\t%d\nPrecio limite:\tAR$ %.2f\nMonto estimado:\tAR$ %.2f\n"
+        . "Comision:\tAR$ %.2f\n"
+        . "Impuestos:\tAR$ %.2f*\n"
+        . "\tIVA Comision: AR$ %.2f\n"
+        . "\tDerecho de mercado: AR$ %.2f\n"
+        . "\nTOTAL:\t\tAR$ %.2f\n";
+
+printf($output, $op->getQuantity(), $op->getPrice(), $op->getAmount(), $op->getFee(), $op->getFeeTax() + $op->getMarketFee() + $op->getMarketFeeTax(), $op->getFeeTax(), $op->getMarketFee() + $op->getMarketFeeTax(), $op->getTotal());
