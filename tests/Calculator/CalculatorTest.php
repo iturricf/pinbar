@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CharlieIndia\Pinbar\Tests\Calculator;
 
 use CharlieIndia\Pinbar\Calculator\Calculator;

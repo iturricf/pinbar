@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CharlieIndia\Pinbar\Calculator;
 
 use CharlieIndia\Pinbar\Operation\Operation;
@@ -15,7 +17,7 @@ class Calculator
     {
         $op = new Operation($opType);
         $op->setPrice($price);
-        $op->setQuantity(floor($amount / $price));
+        $op->setQuantity((int) floor($amount / $price));
 
         $this->calcFees($op);
 
