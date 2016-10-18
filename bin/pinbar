@@ -1,11 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+declare(strict_types=1);
 
 use CharlieIndia\Pinbar\Calculator\Calculator;
 use CharlieIndia\Pinbar\Operation\Operation;
 use Commando\Command;
+
+require_once __DIR__.'/../vendor/autoload.php';
 
 $console = new Command();
 $console

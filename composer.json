@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": "^7.0",
         "nategood/commando": "^0.2.8"
     },
     "autoload": {

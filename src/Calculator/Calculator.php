@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CharlieIndia\Pinbar\Calculator;
 
 use CharlieIndia\Pinbar\Operation\Operation;
 
+/**
+ * @author Cristian Iturri <iturri.cf@gmail.com>
+ */
 class Calculator
 {
     const RATE_SILVER_FEE = 0.007;
@@ -15,7 +20,7 @@ class Calculator
     {
         $op = new Operation($opType);
         $op->setPrice($price);
-        $op->setQuantity(floor($amount / $price));
+        $op->setQuantity((int) floor($amount / $price));
 
         $this->calcFees($op);
 

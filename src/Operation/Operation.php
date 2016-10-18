@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CharlieIndia\Pinbar\Operation;
 
+/**
+ * @author Cristian Iturri <iturri.cf@gmail.com>
+ */
 class Operation
 {
     const TYPE_BUY = 1;
