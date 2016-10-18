@@ -55,4 +55,12 @@ $output = "Cantidad:\t%d\nPrecio limite:\tAR$ %.2f\nMonto estimado:\tAR$ %.2f\n"
         . "\tDerecho de mercado: AR$ %.2f\n"
         . "\nTOTAL:\t\tAR$ %.2f\n";
 
-printf($output, $op->getQuantity(), $op->getPrice(), $op->getAmount(), $op->getFee(), $op->getFeeTax() + $op->getMarketFee() + $op->getMarketFeeTax(), $op->getFeeTax(), $op->getMarketFee() + $op->getMarketFeeTax(), $op->getTotal());
+    printf($output, $op->getQuantity(), $op->getPrice(), $op->getAmount(), $op->getFee(), $op->getFeeTax() + $op->getMarketFee() + $op->getMarketFeeTax(), $op->getFeeTax(), $op->getMarketFee() + $op->getMarketFeeTax(), $op->getTotal());
+
+if (!$console['sell']) {
+    $sellOp = $calc->simulateBullish($op, 5);
+
+    printf("\n\n\n");
+
+    printf($output, $sellOp->getQuantity(), $sellOp->getPrice(), $sellOp->getAmount(), $sellOp->getFee(), $sellOp->getFeeTax() + $sellOp->getMarketFee() + $sellOp->getMarketFeeTax(), $sellOp->getFeeTax(), $sellOp->getMarketFee() + $sellOp->getMarketFeeTax(), $sellOp->getTotal());
+}
