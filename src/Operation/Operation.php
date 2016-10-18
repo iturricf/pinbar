@@ -30,7 +30,7 @@ class Operation
                 . "Derecho de mercado: AR$ %.2f\nIva Derecho de mercado: AR$ %.2f\n"
                 . "\nTotal operación: AR$ %.2f\n";
 
-        return sprintf($output, $this->getQuantity(), $this->getOperationTotal(false), $this->getFee(), $this->getFeeTax(), $this->getMarketFee(), $this->getMarketFeeTax(), $this->getOperationTotal());
+        return sprintf($output, $this->getQuantity(), $this->getAmount(), $this->getFee(), $this->getFeeTax(), $this->getMarketFee(), $this->getMarketFeeTax(), $this->getTotal());
     }
 
     public function getType(): int
@@ -129,13 +129,14 @@ class Operation
         return $this;
     }
 
-    public function getOperationTotal(bool $withFees = true): float
+    public function getAmount(): float
     {
-        $total = $this->getQuantity() * $this->getPrice();
+        return round($this->getQuantity() * $this->getPrice(), 2);
+    }
 
-        if ($withFees) {
-            $total += $this->type * ($this->getFee() + $this->getFeeTax() + $this->getMarketFee() + $this->getMarketFeeTax());
-        }
+    public function getTotal(): float
+    {
+        $total = $this->getAmount() + ($this->type * ($this->getFee() + $this->getFeeTax() + $this->getMarketFee() + $this->getMarketFeeTax()));
 
         return round($total, 2);
     }

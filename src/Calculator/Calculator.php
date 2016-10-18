@@ -43,13 +43,13 @@ class Calculator
 
     private function calcFee(Operation $op): float
     {
-        $fee = $op->getOperationTotal(false) * self::RATE_SILVER_FEE;
+        $fee = $op->getAmount() * self::RATE_SILVER_FEE;
 
         return $fee > self::RATE_SILVER_MIN_FEE ? $fee : self::RATE_SILVER_MIN_FEE;
     }
 
     private function calcMarketFee(Operation $op): float
     {
-        return $op->getOperationTotal(false) * self::RATE_MARKET_FEE;
+        return $op->getAmount() * self::RATE_MARKET_FEE;
     }
 }
