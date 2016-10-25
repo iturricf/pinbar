@@ -45,9 +45,22 @@ $calc = new Calculator();
 $opType = $console['sell'] ? Operation::TYPE_SELL : Operation::TYPE_BUY;
 
 if ($console['sell'] || $console['quantity']) {
-    $op = $calc->simulateQuantity(intval($console['amount']), floatval($console['price']), $opType);
+    try {
+        $op = $calc->simulateQuantity(intval($console['amount']), floatval($console['price']), $opType);
+    } catch (\DomainException $e) {
+        printf("La cantidad a operar no puede ser menor a 1\n");
+
+        return -1;
+    }
 } else {
-    $op = $calc->simulateAmount(floatval($console['amount']), floatval($console['price']), $opType);
+    try {
+        $op = $calc->simulateAmount(floatval($console['amount']), floatval($console['price']), $opType);
+    } catch (\DomainException $e) {
+        printf("El monto ingresado no es suficiente para cubrir al menos 1 papel en la operación\n");
+
+        return -1;
+    }
+
 }
 
 $output = "Cantidad:\t%d\nPrecio limite:\tAR$ %.2f\nMonto estimado:\tAR$ %.2f\n"
