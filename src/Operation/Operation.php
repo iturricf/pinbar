@@ -100,6 +100,10 @@ class Operation
      */
     public function setQuantity(int $quantity): Operation
     {
+        if (1 > $quantity) {
+            throw new \DomainException('The quantity must be at least 1');
+        }
+
         $this->quantity = $quantity;
 
         return $this;
