@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @author Cristian Iturri <iturri.cf@gmail.com>
  */
-class CalculatorTest extends Testcase
+class CalculatorTest extends TestCase
 {
     private $calc;
 
