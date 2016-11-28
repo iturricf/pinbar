@@ -30,7 +30,7 @@ class Operation
      */
     public function __construct(int $type = self::TYPE_BUY)
     {
-        $this->type = $type;
+        $this->setType($type);
     }
 
     /**
@@ -52,6 +52,10 @@ class Operation
      */
     public function setType(int $type): Operation
     {
+        if (!in_array($type, [self::TYPE_BUY, self::TYPE_SELL])) {
+            throw new \DomainException('The type provided is not a valid type');
+        }
+
         $this->type = $type;
 
         return $this;
