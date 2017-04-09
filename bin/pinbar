@@ -25,6 +25,13 @@ $console
     ->description('El precio del papel a operar.');
 
 $console
+    ->option()
+    ->require(false)
+    ->aka('profit')
+    ->title('profit')
+    ->description('Utilidades esperadas en porcentaje');
+
+$console
     ->option('q')
     ->require(false)
     ->aka('quantity')
@@ -73,7 +80,8 @@ $output = "Cantidad:\t%d\nPrecio limite:\tAR$ %.2f\nMonto estimado:\tAR$ %.2f\n"
     printf($output, $op->getQuantity(), $op->getPrice(), $op->getAmount(), $op->getFee(), $op->getFeeTax() + $op->getMarketFee() + $op->getMarketFeeTax(), $op->getFeeTax(), $op->getMarketFee() + $op->getMarketFeeTax(), $op->getTotal());
 
 if (!$console['sell']) {
-    $sellOp = $calc->simulateBullish($op, 5);
+    $profitRatio = $console['profit'] ?? 0;
+    $sellOp = $calc->simulateBullish($op, floatval($profitRatio));
 
     printf("\n\n\n");
 
