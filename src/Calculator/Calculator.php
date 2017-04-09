@@ -38,11 +38,13 @@ class Calculator
         return $op;
     }
 
-    public function simulateBullish(Operation $op, float $delta): Operation
+    public function simulateBullish(Operation $op, float $profit): Operation
     {
         $feeRatio = ($op->getTotal() - $op->getAmount()) / $op->getAmount();
 
-        $priceVariation = (($op->getPrice() * (1 + $feeRatio)) / (1 - $feeRatio)) - $op->getPrice();
+        $feeEquation = 1 + $feeRatio;
+
+        $priceVariation = (($op->getPrice() * ($feeEquation + $profit * $feeEquation)) / (1 - $feeRatio)) - $op->getPrice();
 
         $sellOp = new Operation(Operation::TYPE_SELL);
         $sellOp->setPrice($op->getPrice() + $priceVariation);
