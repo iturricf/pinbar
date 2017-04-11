@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 use CharlieIndia\Pinbar\Calculator\Calculator;
 use CharlieIndia\Pinbar\Operation\Operation;
+use CharlieIndia\Pinbar\Output\ConsoleOutputManager;
+use CharlieIndia\Pinbar\Transformer\OperationTransformer;
 use Commando\Command;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -70,20 +72,12 @@ if ($console['sell'] || $console['quantity']) {
 
 }
 
-$output = "Cantidad:\t%d\nPrecio limite:\tAR$ %.2f\nMonto estimado:\tAR$ %.2f\n"
-        . "Comision:\tAR$ %.2f\n"
-        . "Impuestos:\tAR$ %.2f*\n"
-        . "\tIVA Comision: AR$ %.2f\n"
-        . "\tDerecho de mercado: AR$ %.2f\n"
-        . "\nTOTAL:\t\tAR$ %.2f\n";
-
-    printf($output, $op->getQuantity(), $op->getPrice(), $op->getAmount(), $op->getFee(), $op->getFeeTax() + $op->getMarketFee() + $op->getMarketFeeTax(), $op->getFeeTax(), $op->getMarketFee() + $op->getMarketFeeTax(), $op->getTotal());
+$outputManager = new ConsoleOutputManager(new OperationTransformer());
+$outputManager->print($op);
 
 if (!$console['sell']) {
     $profitRatio = $console['profit'] ?? 0;
     $sellOp = $calc->simulateBullish($op, floatval($profitRatio));
 
-    printf("\n\n\n");
-
-    printf($output, $sellOp->getQuantity(), $sellOp->getPrice(), $sellOp->getAmount(), $sellOp->getFee(), $sellOp->getFeeTax() + $sellOp->getMarketFee() + $sellOp->getMarketFeeTax(), $sellOp->getFeeTax(), $sellOp->getMarketFee() + $sellOp->getMarketFeeTax(), $sellOp->getTotal());
+    $outputManager->print($sellOp);
 }
