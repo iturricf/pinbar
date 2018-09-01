@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use CharlieIndia\Pinbar\Calculator\Calculator;
+use CharlieIndia\Pinbar\Fee\FeeConfig;
 use CharlieIndia\Pinbar\Operation\Operation;
 use CharlieIndia\Pinbar\Output\ConsoleOutputManager;
 use CharlieIndia\Pinbar\Transformer\OperationTransformer;
@@ -49,7 +50,15 @@ $console
     ->description('Simula una operacion de venta en lugar de compra.')
     ->boolean();
 
-$calc = new Calculator();
+$feeConfig = new FeeConfig([
+            'name' => 'IOL',
+            'min_amount' => 50,
+            'fee_rate' => 0.007,
+            'market_fee_rate' => 0.0008,
+            'tax_rate' => 0.21,
+        ]);
+
+$calc = new Calculator($feeConfig);
 
 $opType = $console['sell'] ? Operation::TYPE_SELL : Operation::TYPE_BUY;
 

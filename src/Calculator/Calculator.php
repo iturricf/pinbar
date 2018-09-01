@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CharlieIndia\Pinbar\Calculator;
 
+use CharlieIndia\Pinbar\Fee\FeeConfigInterface;
 use CharlieIndia\Pinbar\Operation\Operation;
 
 /**
@@ -11,10 +12,12 @@ use CharlieIndia\Pinbar\Operation\Operation;
  */
 class Calculator
 {
-    const RATE_SILVER_FEE = 0.007;
-    const RATE_SILVER_MIN_FEE = 50;
-    const RATE_MARKET_FEE = 0.0008;
-    const RATE_TAX = 0.21;
+    private $fees;
+
+    public function __construct(FeeConfigInterface $fees)
+    {
+        $this->fees = $fees;
+    }
 
     public function simulateAmount(float $amount, float $price, int $opType = Operation::TYPE_BUY): Operation
     {
@@ -58,20 +61,20 @@ class Calculator
     private function calcFees(Operation $op)
     {
         $op->setFee($this->calcFee($op));
-        $op->setFeeTax($op->getFee() * self::RATE_TAX);
+        $op->setFeeTax($op->getFee() * $this->fees->getTaxRate());
         $op->setMarketFee($this->calcMarketFee($op));
-        $op->setMarketFeeTax($op->getMarketFee() * self::RATE_TAX);
+        $op->setMarketFeeTax($op->getMarketFee() * $this->fees->getTaxRate());
     }
 
     private function calcFee(Operation $op): float
     {
-        $fee = $op->getAmount() * self::RATE_SILVER_FEE;
+        $fee = $op->getAmount() * $this->fees->getFeeRate();
 
-        return $fee > self::RATE_SILVER_MIN_FEE ? $fee : self::RATE_SILVER_MIN_FEE;
+        return $fee > $this->fees->getFeeMinAmount() ? $fee : $this->fees->getFeeMinAmount();
     }
 
     private function calcMarketFee(Operation $op): float
     {
-        return $op->getAmount() * self::RATE_MARKET_FEE;
+        return $op->getAmount() * $this->fees->getMarketFeeRate();
     }
 }

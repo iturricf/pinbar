@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CharlieIndia\Pinbar\Tests\Calculator;
 
 use CharlieIndia\Pinbar\Calculator\Calculator;
+use CharlieIndia\Pinbar\Fee\FeeConfig;
 use CharlieIndia\Pinbar\Operation\Operation;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +18,15 @@ class CalculatorTest extends TestCase
 
     protected function setUp()
     {
-        $this->calc = new Calculator();
+        $feeConfig = new FeeConfig([
+            'name' => 'IOL',
+            'min_amount' => 50,
+            'fee_rate' => 0.007,
+            'market_fee_rate' => 0.0008,
+            'tax_rate' => 0.21,
+        ]);
+
+        $this->calc = new Calculator($feeConfig);
     }
 
     public function testSimulateAmount()
